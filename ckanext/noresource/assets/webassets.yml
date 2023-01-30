@@ -1,0 +1,28 @@
+# noresource-js:
+#   filter: rjsmin
+#   output: ckanext-noresource/%(version)s-noresource.js
+#   contents:
+#     - js/noresource.js
+#   extra:
+#     preload:
+#       - base/main
+
+# noresource-css:
+#   filter: cssrewrite
+#   output: ckanext-noresource/%(version)s-noresource.css
+#   contents:
+#     - css/noresource.css
+
+noresource-dataset-js:
+  output: ckanext-noresource/%(version)s-dataset.js
+  contents:
+    - js/dataset.js
+  extra:
+    preload:
+      - base/main
+
+noresource-dataset-style:
+  contents:
+    - css/noresource-dataset.css
+  output: noresource/%(version)s-noresource-dataset.css
+  filter: cssrewrite
