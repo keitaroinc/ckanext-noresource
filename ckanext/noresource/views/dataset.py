@@ -51,6 +51,7 @@ class NoResourceConfigView(MethodView):
         items = admin._get_config_options()
         options = _get_noresurce_options()
         schema = logic.schema.update_configuration_schema()
+        print(schema)
         data = {}
         for key in schema:
             data[key] = config.get(key)
