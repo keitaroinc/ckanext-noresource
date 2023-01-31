@@ -1,7 +1,7 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
-from ckanext.noresource.views.dataset import noresource_dataset
+from ckanext.noresource.views.dataset import noresource_dataset, noresource_admin
 
 class NoresourcePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -10,7 +10,8 @@ class NoresourcePlugin(plugins.SingletonPlugin):
     # IConfigurer
 
     def get_blueprint(self):
-        return [noresource_dataset]
+        return [noresource_dataset, noresource_admin]
+    
 
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
