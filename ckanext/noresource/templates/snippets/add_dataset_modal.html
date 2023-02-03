@@ -1,23 +1,7 @@
+
 {% asset 'noresource/noresource-dataset-js' %}
 {% asset 'noresource/noresource-dataset-style' %}
 
-{% if g.noresource == '1' %}
-{% set dataset_type = dataset_type if dataset_type else 'dataset' %}
-
-{% if group %}
-    {% link_for _('Add Dataset'), named_route='dataset.new', group=group, class_='btn btn-primary btn-menu-i', icon='plus-square' %}
-{% else %}
-    {% link_for _('Add ' + dataset_type.title()), named_route='%s.new' % dataset_type, class_='btn btn-primary btn-menu-i', icon='plus-square' %}
-{% endif %}
-{% endif %}
-
-{% if g.noresource == '2' %}
-{% set params = {'metadata': 'true'} %}
-{% set url = h.add_url_param(controller='noresource_dataset_metadata', action='new', new_params=params) %}
-{% link_for _('Add Dataset Metadata'), named_route='noresource_dataset_metadata.new', class_='btn btn-primary', icon='plus-square' %}
-{% endif %}
-
-{% if g.noresource == '3'%}
 
 <a class="btn btn-primary" data-module="add-dataset-modal">
   <i class="fa fa-plus-square"></i> {{ _('Add Dataset') }}
@@ -62,5 +46,3 @@
     </div>
   </div>
 </div>
-
-{% endif %}

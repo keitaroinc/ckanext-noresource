@@ -33,7 +33,15 @@ noresource_dataset = Blueprint(u'noresource_dataset',
                                 url_defaults={u'package_type': u'dataset'}
 )
 
-noresource_admin = Blueprint(u'noresurce_admin', __name__, url_prefix=u'/ckan-admin')
+noresource_dataset_metadata = Blueprint(u'noresource_dataset_metadata',
+                                __name__,
+                                url_prefix=u'/dataset_metadata',
+                                url_defaults={u'package_type': u'dataset'}
+)
+
+noresource_admin = Blueprint(u'noresurce_admin',
+                                __name__,
+                                url_prefix=u'/ckan-admin')
 
 def _get_noresurce_options():
     options = [{u'text':u'Default(Create dataset with resource)',
@@ -47,11 +55,9 @@ def _get_noresurce_options():
 
 class NoResourceConfigView(MethodView):
     def get(self):
-        print("This is adminNR get method")
         items = admin._get_config_options()
         options = _get_noresurce_options()
         schema = logic.schema.update_configuration_schema()
-        print(schema)
         data = {}
         for key in schema:
             data[key] = config.get(key)
@@ -64,7 +70,6 @@ class NoResourceConfigView(MethodView):
     def post(self):
         try:
             req = request.form.copy()
-            print(req)
             req.update(request.files.to_dict())
             data_dict = logic.clean_dict(
                 dict_fns.unflatten(
@@ -72,15 +77,14 @@ class NoResourceConfigView(MethodView):
                         logic.parse_params(req,
                                             ignore_keys=CACHE_PARAMETERS))))
 
-            print("NESTO OVDE")
             del data_dict['save']
-            print(data_dict)
+
             data = logic.get_action(u'config_option_update')({
                 u'user': g.user
             }, data_dict)
 
         except logic.ValidationError as e:
-            print("Are you here ??")
+
             items = admin._get_config_options()
             options = _get_noresurce_options()
             data = request.form
@@ -102,11 +106,33 @@ class CreateView(dataset.CreateView):
     def get(self, package_type, data=None, errors=None, error_summary=None):
         print("IN GET")
         # Handle metadata-only datasets
-        if has_query_param('metadata'):
-            package_type = package_type if use_standard_package_type() else 'requestdata-metadata-only'
-
-        return super(CreateView, self).get(package_type, data,
+        print(g.noresource)
+        
+        if g.noresource == '1':
+            print("MODE 1")
+            return super(CreateView, self).get(package_type, data,
                                            errors, error_summary)
+        
+        if g.noresource == '2':
+            if has_query_param('metadata'):
+                package_type = package_type if use_standard_package_type() else 'requestdata-metadata-only'
+                print("MODE 2")
+                print(package_type)
+            return super(CreateView, self).get(package_type, data,
+                                           errors, error_summary)
+
+        if g.noresource == '3':
+            if has_query_param('metadata'):
+                print("MODE 3")
+                package_type = package_type if use_standard_package_type() else 'requestdata-metadata-only'
+            return super(CreateView, self).get(package_type, data,
+                                                   errors, error_summary)
+            
+        # if has_query_param('metadata'):
+        #     package_type = package_type if use_standard_package_type() else 'requestdata-metadata-only'
+
+        # return super(CreateView, self).get(package_type, data,
+        #                                    errors, error_summary)
 
     def post(self, package_type):
 
@@ -146,7 +172,7 @@ class CreateView(dataset.CreateView):
         else:
             return super(CreateView, self).post(package_type)
 
-
+noresource_dataset_metadata.add_url_rule(u'/new', view_func=CreateView.as_view(str(u'new')))
 noresource_dataset.add_url_rule(u'/new', view_func=CreateView.as_view(str(u'new')))
 noresource_admin.add_url_rule(u'/config', view_func=NoResourceConfigView.as_view(str(u'config')))
 

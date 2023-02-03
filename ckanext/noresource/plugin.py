@@ -1,14 +1,14 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
-from ckanext.noresource.views.dataset import noresource_dataset, noresource_admin
+from ckanext.noresource.views.dataset import noresource_dataset, noresource_admin, noresource_dataset_metadata
 
 class NoresourcePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.IBlueprint)
 
     def get_blueprint(self):
-        return [noresource_dataset, noresource_admin]
+        return [noresource_dataset, noresource_admin, noresource_dataset_metadata]
     
 
     def update_config(self, config_):
