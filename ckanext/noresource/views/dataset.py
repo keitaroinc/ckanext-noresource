@@ -55,27 +55,19 @@ def _get_noresurce_options():
 
 
 class CreateView(dataset.CreateView):
-    def get(self, package_type, data=None, errors=None, error_summary=None):
-        print("IN GET")
-        # Handle metadata-only datasets
-        print(g.noresource)
-        
+    def get(self, package_type, data=None, errors=None, error_summary=None):        
         if g.noresource == '1':
-            print("MODE 1")
             return super(CreateView, self).get(package_type, data,
                                            errors, error_summary)
         
         if g.noresource == '2':
             if has_query_param('metadata'):
                 package_type = package_type if use_standard_package_type() else 'requestdata-metadata-only'
-                print("MODE 2")
-                print(package_type)
             return super(CreateView, self).get(package_type, data,
                                            errors, error_summary)
 
         if g.noresource == '3':
             if has_query_param('metadata'):
-                print("MODE 3")
                 package_type = package_type if use_standard_package_type() else 'requestdata-metadata-only'
             return super(CreateView, self).get(package_type, data,
                                                    errors, error_summary)
@@ -83,8 +75,8 @@ class CreateView(dataset.CreateView):
         # if has_query_param('metadata'):
         #     package_type = package_type if use_standard_package_type() else 'requestdata-metadata-only'
 
-        # return super(CreateView, self).get(package_type, data,
-        #                                    errors, error_summary)
+        return super(CreateView, self).get(package_type, data,
+                                           errors, error_summary)
 
     def post(self, package_type):
 
@@ -118,9 +110,9 @@ class CreateView(dataset.CreateView):
                     'form_snippet': 'package/new_package_form.html',
                     'dataset_type': package_type
                 }
-
-                return toolkit.render('package/new.html',
-                                      extra_vars=extra_vars)
+                data = data_dict
+                return super(CreateView, self).get(package_type, data,
+                                           errors, error_summary)
         else:
             return super(CreateView, self).post(package_type)
 
@@ -155,11 +147,8 @@ class NoResourceAdditionalView(MethodView):
                 u'user': g.user
             }, data_dict)
 
-            print (data)
-
             vars = dict(data=data,
                         **options)    
-            print (vars)        
 
         except logic.ValidationError as e:
 
