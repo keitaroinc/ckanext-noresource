@@ -25,10 +25,6 @@ Compatibility with core CKAN versions:
 
 ## Installation
 
-**TODO:** Add any additional install steps to the list below.
-   For example installing any non-Python dependencies or adding any required
-   config settings.
-
 To install ckanext-noresource:
 
 1. Activate your CKAN virtual environment, for example:
