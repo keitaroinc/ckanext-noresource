@@ -37,7 +37,8 @@ To install ckanext-noresource:
 
 2. Clone the source and install it on the virtualenv
 
-    ``` git clone https://github.com/miloshira/ckanext-noresource.git
+    ``` 
+        git clone https://github.com/miloshira/ckanext-noresource.git
         cd ckanext-noresource
         pip install -e .
         pip install -r requirements.txt ```
