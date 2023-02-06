@@ -1,20 +1,22 @@
 {% asset 'noresource/noresource-dataset-js' %}
-{% asset 'noresource/noresource-dataset-style' %}
+{% asset 'noresource/noresource-dataset-style' %} 
 
-{% if g.noresource == '1' %}
-{% set dataset_type = dataset_type if dataset_type else 'dataset' %}
+{% if g.noresource == '1' or g.noresource is none or g.noresource == '' %}
+  {% set dataset_type = dataset_type if dataset_type else 'dataset' %}
 
-{% if group %}
-    {% link_for _('Add Dataset'), named_route='dataset.new', group=group, class_='btn btn-primary btn-menu-i', icon='plus-square' %}
-{% else %}
-    {% link_for _('Add ' + dataset_type.title()), named_route='%s.new' % dataset_type, class_='btn btn-primary btn-menu-i', icon='plus-square' %}
-{% endif %}
+  {% if group %}
+      {% link_for _('Add Dataset'), named_route='dataset.new', group=group, class_='btn btn-primary btn-menu-i', icon='plus-square' %}
+  {% else %}
+      {% link_for _('Add ' + dataset_type.title()), named_route='%s.new' % dataset_type, class_='btn btn-primary btn-menu-i', icon='plus-square' %}
+  {% endif %}
 {% endif %}
 
 {% if g.noresource == '2' %}
-{% set params = {'metadata': 'true'} %}
-{% set url = h.add_url_param(controller='noresource_dataset_metadata', action='new', new_params=params) %}
-{% link_for _('Add Dataset Metadata'), named_route='noresource_dataset_metadata.new', class_='btn btn-primary', icon='plus-square' %}
+  {% set params = {'metadata': 'true'} %}
+  {% set url = h.add_url_param(controller='noresource_dataset_metadata', action='new', new_params=params) %}
+  <a class="btn btn-primary" href="{{ url }}">
+    <i class="fa fa-plus-square"></i> {{ _('Add Dataset metadata') }}
+  </a>
 {% endif %}
 
 {% if g.noresource == '3'%}
@@ -30,7 +32,7 @@
   <div class="add-dataset-modal-box">
     <div class="modal-body">
       <h3>{{ _('Add full dataset') }}</h3>
-      {% link_for _('Add Dataset'), named_route='noresource_dataset.new', group=group, class_='btn btn-primary', icon='plus-square' %}
+      {% link_for _('Add Dataset'), named_route='noresource_dataset.new', class_='btn btn-primary', icon='plus-square' %}
       <div class="add-dataset-modal-description">
         <p>{{ _('This option is suitable if:') }}</p>
         <ul>
