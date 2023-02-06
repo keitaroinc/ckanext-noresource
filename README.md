@@ -1,4 +1,4 @@
-[![Tests](https://github.com/miloshira/ckanext-noresource/workflows/Tests/badge.svg?branch=main)](https://github.com/miloshira/ckanext-noresource/actions)
+[![Tests](https://github.com/blagojabozinovski/ckanext-questionnaire/workflows/Tests/badge.svg?branch=main)](https://github.com/blagojabozinovski/ckanext-questionnaire/actions)
 
 # ckanext-noresource
 
