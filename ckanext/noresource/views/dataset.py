@@ -44,6 +44,9 @@ noresource_admin = Blueprint(u'noresurce_admin',
                                 __name__,
                                 url_prefix=u'/ckan-admin')
 
+noresource_settings = Blueprint(u'noresource_settings',
+                                __name__)
+
 def _get_noresurce_options():
     options = [{u'text':u'Default(Create dataset with resource)',
                 u'value':u'1'},
@@ -173,9 +176,63 @@ class CreateView(dataset.CreateView):
         else:
             return super(CreateView, self).post(package_type)
 
+
+class NoResourceAdditionalView(MethodView):
+    def get(self):
+        options = _get_noresurce_options()
+        data = {}
+        data['options'] = options
+        data['ckan.noresource'] = config.get('ckan.noresource')
+
+        vars = dict(data=data, errors={}, **options)
+
+        return base.render(u'noresource/index.html', extra_vars=vars)
+
+
+    def post(self):
+        options = _get_noresurce_options()
+
+        try:
+            req = request.form.copy()
+            req.update(request.files.to_dict())
+            data_dict = logic.clean_dict(
+                dict_fns.unflatten(
+                    logic.tuplize_dict(
+                        logic.parse_params(req,
+                                            ignore_keys=CACHE_PARAMETERS))))
+
+            del data_dict['save']
+
+            data = logic.get_action(u'config_option_update')({
+                u'user': g.user
+            }, data_dict)
+
+            print (data)
+
+            vars = dict(data=data,
+                        **options)    
+            print (vars)        
+
+        except logic.ValidationError as e:
+
+            options = _get_noresurce_options()
+            data = request.form
+            errors = e.error_dict
+            error_summary = e.error_summary
+            vars = dict(data=data,
+                        errors=errors,
+                        error_summary=error_summary,
+                        **options)
+
+            return base.render(u'noresource/index.html', extra_vars=vars)
+
+        return base.render(u'noresource/index.html', extra_vars=vars)
+
+
 noresource_dataset_metadata.add_url_rule(u'/new', view_func=CreateView.as_view(str(u'new')))
 noresource_dataset.add_url_rule(u'/new', view_func=CreateView.as_view(str(u'new')))
 noresource_admin.add_url_rule(u'/config', view_func=NoResourceConfigView.as_view(str(u'config')))
+noresource_settings.add_url_rule(u'/noresource', view_func=NoResourceAdditionalView.as_view(str(u'config')))
 
 def get_blueprints():
     return [noresource_dataset]

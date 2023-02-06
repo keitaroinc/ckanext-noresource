@@ -1,0 +1,13 @@
+{% ckan_extends %}
+
+{% block header_account_logged %}
+{% if c.userobj.sysadmin %}
+<li>
+  <a href="{{ h.url_for('noresource_settings.config') }}" title="{{ _('Dataset config') }}">
+    <i class="fa fa-codepen"></i>
+  </a>
+</li>
+{% endif %}
+
+{{ super() }}
+{% endblock %}

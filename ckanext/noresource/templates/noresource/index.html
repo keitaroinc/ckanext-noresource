@@ -1,0 +1,55 @@
+{% extends "page.html" %}
+
+{% block breadcrumb_content %}
+  <li class="active"><a href="{{ h.url_for('noresource_settings.config') }}">{{ _('Dataset without a resource') }}</a></li>
+{% endblock %}
+
+{% block secondary %}{% endblock %}
+
+{% block primary %}
+  <article class="module">
+    {% block page_header %}
+      <header class="module-content page-header hug">
+        <div class="content_action">
+        </div>
+    {% block content_primary_nav %}    
+        <ul class="nav nav-tabs">
+          {{ h.build_nav_icon('noresource_settings.config', _('Settings'), icon='codepen') }}
+        </ul>
+     {% endblock %}   
+      </header>
+    {% endblock %}
+
+    <div class="module-content">
+      {% if self.page_primary_action() | trim %}
+        <div class="page_primary_action">
+          {% block page_primary_action %}{% endblock %}
+        </div>
+      {% endif %}
+      {% block primary_content_inner %}
+        <div data-module="dashboard">
+          <h2 class="page-heading">
+            {% block page_heading %}
+              {{ _('Dataset resource settings') }}
+
+              
+              {% import 'macros/form.html' as form %}
+
+              
+                {{ form.errors(error_summary) }}
+              
+                <form method='post' action="" id="dataset-settings-form" enctype="multipart/form-data">
+                    {{ form.select('ckan.noresource', id='field-ckan-noresource', label=_('Choose index resource options'), options=options, selected=data['ckan.noresource'], error=error) }}
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
+                </div>
+              </form>
+
+            {% endblock %}
+          </h2>
+        </div>
+      {% endblock %}
+    </div>
+  </article>
+  
+{% endblock %}

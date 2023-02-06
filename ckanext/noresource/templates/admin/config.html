@@ -23,7 +23,6 @@
       {% endif %}
     {% endif %}
     
-    {{ form.select('ckan.noresource', id='field-ckan-noresource', label=_('Choose index resource options'), options=options, selected=data[noresource], error=error) }}
     {{ form.input('ckan.site_description', id='field-ckan-site-description', label=_('Site Tag Line'), value=data['ckan.site_description'], error=error, classes=['control-medium']) }}
     
     {% set field_url = 'ckan.site_logo' %}
