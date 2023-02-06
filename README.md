@@ -8,8 +8,8 @@ With this ckan extension you can choose to add a dataset with or without a resor
 
 The settings are:
 
-1. add dataset normaly(with resource), 
-2. add dataset without resource. 
+1. create dataset normaly(with resource), 
+2. create dataset without resource. 
 3. let the user choose at dataset creation.
 
 ![image](https://user-images.githubusercontent.com/30418161/216944544-3fce99db-2152-4ca3-967c-44c885a8d47b.png)
