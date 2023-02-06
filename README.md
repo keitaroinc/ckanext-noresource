@@ -22,13 +22,6 @@ Compatibility with core CKAN versions:
 | 2.8             | not tested    |
 | 2.9             | yes  |
 
-Suggested values:
-
-* "yes"
-* "not tested" - I can't think of a reason why it wouldn't work
-* "not yet" - there is an intention to get it working
-* "no"
-
 
 ## Installation
 
