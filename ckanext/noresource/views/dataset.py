@@ -40,10 +40,6 @@ noresource_dataset_metadata = Blueprint(u'noresource_dataset_metadata',
                                 url_defaults={u'package_type': u'dataset'}
 )
 
-noresource_admin = Blueprint(u'noresurce_admin',
-                                __name__,
-                                url_prefix=u'/ckan-admin')
-
 noresource_settings = Blueprint(u'noresource_settings',
                                 __name__)
 
@@ -56,54 +52,6 @@ def _get_noresurce_options():
                 u'value':u'3'}]
 
     return dict(options=options)
-
-class NoResourceConfigView(MethodView):
-    def get(self):
-        items = admin._get_config_options()
-        options = _get_noresurce_options()
-        schema = logic.schema.update_configuration_schema()
-        data = {}
-        for key in schema:
-            data[key] = config.get(key)
-
-        vars = dict(data=data, errors={}, **items, **options)
-
-        return base.render(u'admin/config.html', extra_vars=vars)
-
-
-    def post(self):
-        try:
-            req = request.form.copy()
-            req.update(request.files.to_dict())
-            data_dict = logic.clean_dict(
-                dict_fns.unflatten(
-                    logic.tuplize_dict(
-                        logic.parse_params(req,
-                                            ignore_keys=CACHE_PARAMETERS))))
-
-            del data_dict['save']
-
-            data = logic.get_action(u'config_option_update')({
-                u'user': g.user
-            }, data_dict)
-
-        except logic.ValidationError as e:
-
-            items = admin._get_config_options()
-            options = _get_noresurce_options()
-            data = request.form
-            errors = e.error_dict
-            error_summary = e.error_summary
-            vars = dict(data=data,
-                        errors=errors,
-                        error_summary=error_summary,
-                        form_items=items,
-                        **options,
-                        **items)
-            return base.render(u'admin/config.html', extra_vars=vars)
-
-        return h.redirect_to(u'admin.config')
-
 
 
 class CreateView(dataset.CreateView):
@@ -231,7 +179,6 @@ class NoResourceAdditionalView(MethodView):
 
 noresource_dataset_metadata.add_url_rule(u'/new', view_func=CreateView.as_view(str(u'new')))
 noresource_dataset.add_url_rule(u'/new', view_func=CreateView.as_view(str(u'new')))
-noresource_admin.add_url_rule(u'/config', view_func=NoResourceConfigView.as_view(str(u'config')))
 noresource_settings.add_url_rule(u'/noresource', view_func=NoResourceAdditionalView.as_view(str(u'config')))
 
 def get_blueprints():
