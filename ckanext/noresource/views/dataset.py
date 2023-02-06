@@ -11,10 +11,11 @@ import ckan.views.admin as admin
 import ckan.views.dataset as dataset
 
 import ckan.lib.navl.dictization_functions as dict_fns
-from ckanext.requestdata.helpers import has_query_param
-from ckanext.requestdata.utils import use_standard_package_type
 from flask.views import MethodView
 from ckan.views.home import CACHE_PARAMETERS
+
+from ckanext.noresource.helpers import has_query_param
+from ckanext.noresource.utils import use_standard_package_type
 
 get_action = logic.get_action
 NotAuthorized = logic.NotAuthorized

@@ -2,6 +2,7 @@ import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
 
 from ckanext.noresource.views.dataset import noresource_dataset, noresource_admin, noresource_dataset_metadata
+import ckanext.noresource.helpers as helpers
 
 class NoresourcePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
@@ -26,3 +27,11 @@ class NoresourcePlugin(plugins.SingletonPlugin):
             'ckan.noresource': validators
         })
         return schema
+
+    # ITemplateHelpers
+
+    def get_helpers(self):
+        return {
+            'requestdata_has_query_param':
+                helpers.has_query_param,
+        }
