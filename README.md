@@ -37,10 +37,12 @@ To install ckanext-noresource:
 
 2. Clone the source and install it on the virtualenv
 
-    ~~~git clone https://github.com/miloshira/ckanext-noresource.git
+    ~~~
+    git clone https://github.com/miloshira/ckanext-noresource.git
     cd ckanext-noresource
     pip install -e .
-    pip install -r requirements.txt~~~
+    pip install -r requirements.txt
+    ~~~
 
 3. Add `noresource` to the `ckan.plugins` setting in your CKAN
    config file (by default the config file is located at
