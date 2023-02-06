@@ -2,15 +2,16 @@
 
 # ckanext-noresource
 
-**TODO:** Put a description of your extension here:  What does it do? What features does it have? Consider including some screenshots or embedding a video!
+With this ckan extension you can choose to add a dataset with or without a resoruce, it provides us with 3 settings that can be set by a sysadmin  with pressing the added button on the admin header.
+
+![image](https://user-images.githubusercontent.com/30418161/216944233-635ba421-bd11-428d-9394-d2a0eac3d420.png)
+
+The settings are, add dataset normaly(with resource, add dataset without resource and let the used choose at dataset creation.
+
+![image](https://user-images.githubusercontent.com/30418161/216944544-3fce99db-2152-4ca3-967c-44c885a8d47b.png)
 
 
 ## Requirements
-
-**TODO:** For example, you might want to mention here which versions of CKAN this
-extension works with.
-
-If your extension works across different versions you can add the following table:
 
 Compatibility with core CKAN versions:
 
@@ -19,7 +20,7 @@ Compatibility with core CKAN versions:
 | 2.6 and earlier | not tested    |
 | 2.7             | not tested    |
 | 2.8             | not tested    |
-| 2.9             | not tested    |
+| 2.9             | yes  |
 
 Suggested values:
 
