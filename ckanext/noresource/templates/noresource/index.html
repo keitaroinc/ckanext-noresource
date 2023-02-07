@@ -32,20 +32,20 @@
             {% block page_heading %}
               {{ _('Dataset resource settings') }}
 
-              
+            {% endblock %}
+          </h2>
               {% import 'macros/form.html' as form %}
 
               
                 {{ form.errors(error_summary) }}
               
                 <form method='post' action="" id="dataset-settings-form" enctype="multipart/form-data">
-                    {{ form.select('ckan.noresource', id='field-ckan-noresource', label=_('Choose index resource options'), options=options, selected=data['ckan.noresource'], error=error) }}
+                    {{ form.select('ckan.noresource', id='field-ckan-noresource', classes=['floating-select'],label=_('Choose index resource options'), options=options, selected=data['ckan.noresource'], error=error) }}
                 <div class="form-actions">
                   <button type="submit" class="btn btn-primary" name="save">{{ _('Save') }}</button>
                 </div>
               </form>
 
-            {% endblock %}
           </h2>
         </div>
       {% endblock %}
