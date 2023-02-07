@@ -12,8 +12,7 @@ The settings are:
 2. create dataset without resource. 
 3. let the user choose at dataset creation.
 
-![image](https://user-images.githubusercontent.com/30418161/216944544-3fce99db-2152-4ca3-967c-44c885a8d47b.png)
-
+![ddmenu](https://user-images.githubusercontent.com/30418161/217267695-fd912f38-3495-450b-805e-5241e86b900b.png)
 
 ## Requirements
 
