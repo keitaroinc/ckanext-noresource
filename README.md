@@ -66,7 +66,7 @@ To install ckanext-noresource:
 To install ckanext-noresource for development, activate your CKAN virtualenv and
 do:
 
-    git clone https://github.com/miloshira/ckanext-noresource.git
+    git clone git@github.com:keitaroinc/ckanext-noresource.git
     cd ckanext-noresource
     python setup.py develop
     pip install -r dev-requirements.txt
